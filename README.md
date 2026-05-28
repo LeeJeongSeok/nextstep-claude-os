@@ -43,19 +43,42 @@ OS가 제대로 작동하려면 **프로젝트, 산출물, 작업 상태, 판단
 
 ## 현재 구성
 
+### 오케스트레이션 흐름
+
+```
+/task <요구사항>
+      ↓
+[os-orchestrator]  ← 파이프라인 조율
+      ↓ 순서대로 호출
+[interpret-agent] → [structure-agent] → [implement-agent] → [record-agent]
+      ↓                    ↓                   ↓                  ↓
+   해석 결과          태스크 구조           구현 산출물         재사용 자산
+      ↓
+.claude/context/current.md  ← 에이전트 간 공유 컨텍스트
+```
+
 ### Skills (`/.claude/commands/`)
 
 | 스킬 | 설명 |
 |---|---|
-| `git-commit` | 변경사항 분석 후 Conventional Commits 형식으로 자동 커밋 |
+| `task` | 새 작업 시작 → os-orchestrator 호출 |
+| `status` | 현재 작업 상태·진행 단계·블로커 출력 |
+| `done` | 작업 완료 처리 + record-agent 호출 |
+| `stuck` | 블로커 기록 + 해결 방향 탐색 |
 | `ask` | 클로드 코드·개발 관련 질문에 WebSearch 팩트 체크 + 출처 제공 |
 | `skill-stat` | 스킬별 호출 횟수·소요시간 통계 표 출력 |
+| `git-commit` | 변경사항 분석 후 Conventional Commits 형식으로 자동 커밋 |
 
 ### Agents (`/.claude/agents/`)
 
-| 에이전트 | 설명 |
-|---|---|
-| `ask-agent` | WebSearch·WebFetch로 개발 질문에 출처 포함 답변 |
+| 에이전트 | 단계 | 역할 |
+|---|---|---|
+| `os-orchestrator` | — | 4단계 파이프라인 전체 조율 |
+| `interpret-agent` | 1단계 | 요구사항 해석 (핵심 의도·제약·모호함 명확화) |
+| `structure-agent` | 2단계 | 구조화 (완료 기준·태스크 목록·예상 산출물) |
+| `implement-agent` | 3단계 | 구현·작성 (코드·문서·설정 등 실제 산출물) |
+| `record-agent` | 4단계 | 기록·재사용 (핵심 판단·패턴·회고) |
+| `ask-agent` | — | WebSearch·WebFetch로 개발 질문에 출처 포함 답변 |
 
 ### Hooks (`/.claude/hooks/`)
 
@@ -63,3 +86,9 @@ OS가 제대로 작동하려면 **프로젝트, 산출물, 작업 상태, 판단
 |---|---|---|
 | `skill-start.sh` | `UserPromptSubmit` | 스킬 호출 시작 시간 기록 |
 | `skill-stop.sh` | `Stop` | 소요시간 계산 후 `~/.claude/skill-usage.log`에 저장 |
+
+### Context (`/.claude/context/`)
+
+| 파일 | 설명 |
+|---|---|
+| `current.md` | 현재 진행 중인 작업의 상태 (에이전트 간 공유 메모리) |

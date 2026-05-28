@@ -1,0 +1,5 @@
+# 진행 중인 작업 컨텍스트 (개인 상태 파일)
+.claude/context/current.md
+
+# 스킬 사용 로그 (로컬 전용)
+.claude/settings.local.json
