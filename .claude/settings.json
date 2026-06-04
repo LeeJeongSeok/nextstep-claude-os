@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/skill-start.sh"
+            "command": "bash /Users/jeongseok/Desktop/nextstep/nextstep-claude-os/.claude/hooks/skill-start.sh"
           }
         ]
       }
@@ -15,7 +15,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/skill-stop.sh"
+            "command": "bash /Users/jeongseok/Desktop/nextstep/nextstep-claude-os/.claude/hooks/skill-stop.sh"
           }
         ]
       }

@@ -76,6 +76,7 @@ OS가 제대로 작동하려면 **프로젝트, 산출물, 작업 상태, 판단
 |---|---|---|
 | `ask` | `/ask <질문>` | 클로드 코드·개발 관련 질문에 WebSearch 팩트 체크 + 출처 제공 |
 | `interview` | `/interview <막연한 아이디어>` | 가설-반응 루프로 모호한 요구를 구체적인 브리프로 변환, 최대 3라운드 수렴 후 `/task` 입력 생성 |
+| `interview-skill2` | `/interview-skill2 <계획·설계>` | 설계 트리를 의존성 순서로 탐색, 질문마다 추천 답변 제시, 모든 분기 해소까지 한 번에 하나씩 질문 |
 | `yt-learn` | `/yt-learn <YouTube URL>` | 개발 영상에서 주요 인사이트·학습 개념·추천 학습 순서 추출 |
 | `git-commit` | `/git-commit [메시지]` | 변경사항 분석 후 Conventional Commits 형식으로 자동 커밋 |
 | `git-push` | `/git-push [--force]` | 현재 브랜치를 원격 저장소에 push (upstream 없으면 자동 설정) |

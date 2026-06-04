@@ -1,6 +1,6 @@
 ---
 context: craft-principles
-version: 1.0
+version: 1.1
 updated: 2026-06-04
 description: 산출물 품질 기준과 의사결정 원칙. implement-agent가 구현 방식을 결정할 때 참조한다.
 ---
@@ -31,3 +31,9 @@ description: 산출물 품질 기준과 의사결정 원칙. implement-agent가 
 - 완료 보고: 무엇이 달라졌는지 한 줄
 - 추가 행동이 필요하면 한 가지만 제안
 - 진행 중 막히면 즉시 블로커 기록 후 계속
+
+## nextstep-claude-os 구조 원칙
+
+- **스킬-에이전트 분리**: 스킬 파일(`.claude/commands/`)은 입력 검증 + 에이전트 위임만. 실제 로직은 에이전트(`.claude/agents/`)에 위치
+- **공통 로직 추출**: 두 스킬 이상이 동일 로직을 쓰면 `.claude/lib/`에 Python 모듈로 추출. `__main__` 진입점 포함해 직접 실행·import 양쪽 지원
+- **외부 스크립트 경로**: `settings.json` 등 설정 파일의 스크립트 참조는 항상 절대 경로 사용
