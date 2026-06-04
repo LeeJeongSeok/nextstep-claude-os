@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "text": "컨텍스트 주입 검증",
+    "done": true
+  },
+  {
+    "id": 2,
+    "text": "craft.md 원칙 적용 확인",
+    "done": false
+  }
+]

@@ -3,3 +3,4 @@
 
 # 스킬 사용 로그 (로컬 전용)
 .claude/settings.local.json
+.DS_Store
