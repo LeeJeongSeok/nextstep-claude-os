@@ -50,9 +50,9 @@ OS가 제대로 작동하려면 **프로젝트, 산출물, 작업 상태, 판단
       ↓
 [os-orchestrator]  ← 파이프라인 조율
       ↓ 순서대로 호출
-[interpret-agent] → [structure-agent] → [implement-agent] → [record-agent]
-      ↓                    ↓                   ↓                  ↓
-   해석 결과          태스크 구조           구현 산출물         재사용 자산
+[interpret-agent] → [structure-agent] → [implement-agent] → [record-agent] → [curate-agent]
+      ↓                    ↓                   ↓                  ↓                ↓
+   해석 결과          태스크 구조           구현 산출물         재사용 자산      세션 정리·지식 전파
       ↓
 .claude/context/current.md  ← 에이전트 간 공유 컨텍스트
 ```
@@ -65,7 +65,7 @@ OS가 제대로 작동하려면 **프로젝트, 산출물, 작업 상태, 판단
 
 | 스킬 | 사용법 | 설명 |
 |---|---|---|
-| `task` | `/task <요구사항>` | 새 작업 시작 → os-orchestrator 4단계 파이프라인 실행 |
+| `task` | `/task <요구사항>` | 새 작업 시작 → os-orchestrator 5단계 파이프라인 실행 |
 | `status` | `/status` | 현재 작업 상태·진행 단계(해석/구조화/구현/기록)·블로커 출력 |
 | `done` | `/done` | 작업 완료 처리 + record-agent 호출로 재사용 자산 정리 |
 | `stuck` | `/stuck <블로커 내용>` | 블로커 기록 + 근본 원인 분석 + 해결 방향 2~3가지 탐색 |
@@ -114,11 +114,12 @@ OS가 제대로 작동하려면 **프로젝트, 산출물, 작업 상태, 판단
 
 | 에이전트 | 단계 | 사용 도구 | 역할 |
 |---|---|---|---|
-| `os-orchestrator` | — | Read, Write, Edit | 4단계 파이프라인 전체 조율 (`/task` 스킬이 호출) |
+| `os-orchestrator` | — | Read, Write, Edit | 5단계 파이프라인 전체 조율 (`/task` 스킬이 호출) |
 | `interpret-agent` | 1단계 | Read, Write, Edit, WebSearch | 요구사항 해석 (핵심 의도·제약·모호함 명확화) |
 | `structure-agent` | 2단계 | Read, Write, Edit | 구조화 (완료 기준·태스크 목록·예상 산출물 정의) |
 | `implement-agent` | 3단계 | Read, Write, Edit, Bash, WebSearch | 구현·작성 (코드·문서·설정 등 실제 산출물 생성) |
 | `record-agent` | 4단계 | Read, Write, Edit | 기록·재사용 (핵심 판단·패턴·회고를 다음 작업에 연결) |
+| `curate-agent` | 5단계 | Read, Write, Edit | 세션 정리·지식 전파 (history.md 기록 + craft.md·profile.md 갱신 판단) |
 | `ask-agent` | — | WebSearch, WebFetch | 개발 질문에 공식 문서 기반 출처 포함 답변 |
 
 ---
